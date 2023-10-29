@@ -1,10 +1,19 @@
 const { exec } = require("child_process")
 const request = require("request");
+const cheerio = require("cheerio");
+
 /* request("http://www.uol.com.br", function (err, res, body) {
     if(!err && res.statusCode === 200){
         console.log(body);
     }
 }); */
+
+
+const $ = cheerio.load("<ul><li>1</li><li>2</li></ul>");
+$("ul").append("<li>3</li>");
+$("li").each( function() {
+    console.log($(this).html());
+});
 const fs = require("fs");
 // copia o html da pagina
 request("http://www.uol.com.br").pipe(fs.createWriteStream('home.html'));
